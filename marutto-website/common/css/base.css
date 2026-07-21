@@ -1,0 +1,236 @@
+/*
+  Shared base styles for the MARUTTO site.
+  Contains: reset, shared design tokens, global typography defaults,
+  the site header/footer components, and the scroll-reveal animation system.
+  Page-specific layout (hero, sections, etc.) lives in each page's own style.css.
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --green: #073d34;
+  --base: #f4f1e8;
+  --paper: #fffdf7;
+  --ink: #191919;
+  --ink7: #151515;
+  --sand: #b9a78c;
+  --line: #ded8cd;
+  --line-14: rgba(20, 20, 20, 0.14);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--base);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", YuMincho, serif;
+  font-weight: 300;
+  letter-spacing: 0.288px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.kicker {
+  font-family: "Host Grotesk", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin: 0 0 20px;
+}
+.kicker-ink {
+  color: var(--ink7);
+}
+.kicker-white {
+  color: #fff;
+  text-align: center;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+h1, h2, h3 {
+  font-weight: 300;
+}
+
+.block {
+  margin: 0 auto;
+  padding: 140px 0;
+}
+
+/* ---- site header ---- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  height: 72px;
+  padding: 0 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+.logo {
+  font-family: "Host Grotesk", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+}
+.nav {
+  font-family: "Host Grotesk", Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+}
+.nav-icons {
+  display: flex;
+  gap: 24px;
+  padding-left: 24px;
+}
+.nav-icons img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+/* ---- site footer ---- */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 70px 72px;
+  display: flex;
+  justify-content: center;
+}
+.footer-inner {
+  width: 789px;
+  max-width: 100%;
+  display: flex;
+  gap: 30px;
+}
+.footer-copy {
+  flex: 1;
+  font-family: "Host Grotesk", Arial, sans-serif;
+  font-size: 15px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.footer-icons {
+  flex: 1;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+.footer-icons img {
+  width: 24px;
+  height: 24px;
+}
+.footer-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: "Host Grotesk", Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 24.2px;
+}
+
+/* ---- scroll-reveal animation system ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: up 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.delay-1 {
+  animation-delay: 0.2s;
+}
+.delay-2 {
+  animation-delay: 0.4s;
+}
+.reveal-block {
+  opacity: 0;
+  transform: translateY(22px) scale(0.99);
+  transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1), transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-block.d1 {
+  transition-delay: 0.1s;
+}
+.reveal-block.d2 {
+  transition-delay: 0.2s;
+}
+.reveal-block.d3 {
+  transition-delay: 0.3s;
+}
+.reveal-block.d4 {
+  transition-delay: 0.4s;
+}
+.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+@keyframes up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-block {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ---- shared responsive rules ---- */
+@media (max-width: 1000px) {
+  .footer-inner {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    padding: 0 6vw;
+  }
+  .nav {
+    gap: 14px;
+    font-size: 9px;
+  }
+  .block {
+    max-width: 88vw;
+    padding: 90px 0;
+  }
+  h2 {
+    font-size: 30px;
+    line-height: 1.6;
+  }
+}
